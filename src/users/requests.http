@@ -1,0 +1,12 @@
+###Create a new user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "dalvifaraz@gmail.com",
+    "password": "asdf",
+}
+
+###Test Route
+
+GET http://localhost:3000/
