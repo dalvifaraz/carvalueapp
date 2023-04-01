@@ -25,3 +25,20 @@ POST http://localhost:3000/auth/2
     
 }
 
+
+
+### SET COLOR
+GET http://localhost:3000/auth/colors/black
+
+### GET COLOR
+GET http://localhost:3000/auth/getcolor/getcolors
+
+
+CREATE A USER
+POST http://localhost:3000/auth/signup
+Content-Type: : application/json
+
+{
+    "email":"new@gmail.com",
+    "password": "password"
+}
