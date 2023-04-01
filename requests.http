@@ -42,3 +42,7 @@ Content-Type: : application/json
     "email":"new@gmail.com",
     "password": "password"
 }
+
+
+### WHO AM I
+GET http://localhost:3000/auth/asdf/asdf

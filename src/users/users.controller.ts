@@ -57,6 +57,17 @@ export class UsersController {
     return user;
   }
 
+  @Get('/user/islogin')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
+  @Post('/signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
+    return 'User logged out successfully!';
+  }
+
   @Get()
   findAllUsers(@Query('email') email: string) {
     return this.usersService.find(email);
@@ -71,21 +82,4 @@ export class UsersController {
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);
   }
-
-  // @Get('/colorsn/:color')
-  // setColor(@Param('color') color: string, @Session() session: any) {
-  //   console.log('hellolll');
-  //   session.color = color;
-  // }
-
-  // @Get('/colors')
-  // getColor(@Session() session: any) {
-  //   console.log('HELLO');
-  //   return session.color;
-  // }
-
-  // @Get('/asdf')
-  // getHello(): string {
-  //   return 'hello jim';
-  // }
 }
