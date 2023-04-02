@@ -21,6 +21,7 @@ import {
 } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/current-user.decorators';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -58,8 +59,13 @@ export class UsersController {
   }
 
   @Get('/user/islogin')
-  whoAmI(@Session() session: any) {
+  isLogin(@Session() session: any) {
     return this.usersService.findOne(session.userId);
+  }
+
+  @Get('user/who')
+  whichUser(@CurrentUser() user: string) {
+    return user;
   }
 
   @Post('/signout')
