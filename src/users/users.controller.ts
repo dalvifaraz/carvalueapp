@@ -22,9 +22,12 @@ import {
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorators';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { User } from './user.entity';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private usersService: UsersService,
@@ -64,7 +67,7 @@ export class UsersController {
   }
 
   @Get('user/who')
-  whichUser(@CurrentUser() user: string) {
+  whichUser(@CurrentUser() user: User) {
     return user;
   }
 
