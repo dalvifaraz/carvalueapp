@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from './report.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
-import { ApproveReportDto } from './dtos/approve-report.dto';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 
 @Injectable()
 export class ReportsService {
@@ -31,5 +31,28 @@ export class ReportsService {
     }
     report.approved = approved;
     return this.repo.save(report);
+  }
+
+  async getEstimate({ make, model, year, mileage, lat, lng }: GetEstimateDto) {
+    let price = await this.repo
+      .createQueryBuilder()
+      .select('AVG(price)', 'price')
+      .where('(LOWER(make)) = :make', { make })
+      .andWhere('(LOWER(model) = :model)', { model })
+      .andWhere('lng = :lng BETWEEN -5 AND 5', { lng })
+      .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+      .andWhere('year - :year BETWEEN -5 AND 5', { year })
+      .andWhere('approved IS TRUE')
+      .orderBy('ABS(mileage - :mileage)', 'DESC')
+      .setParameters({ mileage })
+      .limit(3)
+      .getRawOne();
+    if (price.price) {
+      return price;
+    }
+    price = {
+      price: Math.floor(Math.random() * 29000) + 24000,
+    };
+    return price;
   }
 }
