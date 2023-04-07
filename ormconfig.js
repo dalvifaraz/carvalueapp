@@ -23,7 +23,7 @@ switch (process.env.NODE_ENV) {
     break;
   case 'production':
     Object.assign(dbConfig, {
-      type: 'sqlite',
+      type: 'postgres',
       url: process.env.DATABASE_URL,
       migrationsRun: true,
       entities: ['**/*.entity.js'],
