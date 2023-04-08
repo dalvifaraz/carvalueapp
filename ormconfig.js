@@ -1,5 +1,5 @@
 const dbConfig = {
-  synchronize: false,
+  synchronize: true,
   migrations: ['migrations/*.js'],
   cli: {
     migrationsDir: 'migrations',
@@ -24,12 +24,13 @@ switch (process.env.NODE_ENV) {
   case 'production':
     Object.assign(dbConfig, {
       type: 'postgres',
-      url: process.env.DATABASE_URL,
-      migrationsRun: true,
       entities: ['**/*.entity.js'],
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      url: 'dpg-cgo8i48u9tun42o0llh0-a',
+      host: 'postgres://carvalueapp_user:BN27TCbzf0pVONKqrR4bxN7f9hhsWva2@dpg-cgo8i48u9tun42o0llh0-a/carvalueapp',
+      port: '5432',
+      database: 'carvalueapp',
+      username: 'carvalueapp_user',
+      password: 'BN27TCbzf0pVONKqrR4bxN7f9hhsWva2',
     });
     break;
   default:
